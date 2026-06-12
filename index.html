@@ -3,56 +3,381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tom & Friends Excellent Ventures</title>
+    <title>Tom & Friends Excellent Ventures 🎸</title>
+    <!-- Importamos fuentes tech de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Courier New', Courier, monospace; background-color: #f4f4f4; color: #333; margin: 0; padding: 0; }
-        header { background-color: #111; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        header a { color: #fff; text-decoration: none; margin-left: 1rem; font-weight: bold; }
-        .hero { text-align: center; padding: 4rem 2rem; background-color: #fff; border-bottom: 2px solid #ccc; }
-        .hero h1 { font-size: 2.5rem; text-transform: uppercase; }
-        .section { padding: 3rem 2rem; max-width: 800px; margin: 0 auto; }
-        .project { margin-bottom: 2rem; padding: 1rem; background: #fff; border: 1px solid #ddd; }
+        /* --- VARIABLES DE COLORES NEÓN --- */
+        :root {
+            --bg-color: #000005;
+            --text-color: #e0fbfc;
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffff00;
+            --glow-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            --glow-magenta: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            --glow-yellow: 0 0 10px #ffff00, 0 0 20px #ffff00;
+            --font-main: 'Rajdhani', sans-serif;
+            --font-tech: 'Orbitron', sans-serif;
+            --font-retro: 'Press Start 2P', cursive;
+        }
+
+        /* --- RESET Y ESTILOS BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; cursor: crosshair; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            letter-spacing: 1px;
+        }
+
+        /* --- EFECTOS CRT Y SCANLINES --- */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* --- FONDO ANIMADO WARP (HTML5 Canvas) --- */
+        #warp-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* --- HEADER Y NAVEGACIÓN FUTURISTA --- */
+        header {
+            background: rgba(0, 0, 10, 0.8);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-tech);
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: var(--glow-cyan);
+        }
+
+        header nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-family: var(--font-main);
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        header nav a:hover {
+            color: var(--neon-yellow);
+            text-shadow: var(--glow-yellow);
+        }
+
+        header nav a:hover::after {
+            content: '⚡';
+            position: absolute;
+            top: -15px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+        }
+
+        /* --- SECCIÓN HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-retro);
+            font-size: 2rem;
+            line-height: 1.5;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-magenta);
+            margin-bottom: 2rem;
+            animation: glitch 2s infinite;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            font-weight: 300;
+            color: var(--neon-yellow);
+            text-shadow: var(--glow-yellow);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border: 1px solid var(--neon-yellow);
+        }
+
+        /* --- SECCIONES DE CONTENIDO --- */
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        h2 {
+            font-family: var(--font-tech);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            border-bottom: 1px solid var(--neon-cyan);
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 span { font-size: 1rem; margin-left: 1rem; opacity: 0.7; font-family: var(--font-retro);}
+
+        /* --- PROYECTOS (VENTURES) --- */
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .venture-card {
+            background: rgba(0, 0, 20, 0.6);
+            border: 2px solid #333;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .venture-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--neon-magenta);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .venture-card:hover {
+            border-color: var(--neon-magenta);
+            box-shadow: var(--glow-magenta);
+            transform: translateY(-5px);
+        }
+
+        .venture-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .venture-card h3 {
+            font-family: var(--font-tech);
+            color: var(--neon-magenta);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .venture-card p {
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* --- EL CEREBRO (FOUNDER) --- */
+        .founder-panel {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-yellow);
+            box-shadow: var(--glow-yellow);
+            padding: 3rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .founder-panel::after {
+            content: 'BIOMETRIC ID: T. TONDREAU';
+            position: absolute;
+            bottom: 10px; right: 15px;
+            font-family: var(--font-retro);
+            font-size: 0.6rem;
+            color: var(--neon-yellow);
+            opacity: 0.5;
+        }
+
+        .founder-panel p { margin-bottom: 1.5rem; font-weight: 300;}
+        .founder-panel strong { font-weight: 700; color: var(--neon-cyan); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-family: var(--font-retro);
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid #222;
+        }
+
+        /* --- ANIMACIONES CSS --- */
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 0 var(--neon-cyan), -2px -2px 0 var(--neon-yellow); }
+            25% { text-shadow: -2px -2px 0 var(--neon-cyan), 2px 2px 0 var(--neon-yellow); }
+            50% { text-shadow: 2px -2px 0 var(--neon-cyan), -2px 2px 0 var(--neon-yellow); }
+            75% { text-shadow: -2px 2px 0 var(--neon-cyan), 2px -2px 0 var(--neon-yellow); }
+            100% { text-shadow: 2px 2px 0 var(--neon-cyan), -2px -2px 0 var(--neon-yellow); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.2rem; }
+            .hero p { font-size: 1rem; }
+            header { flex-direction: column; padding: 1rem; }
+            header nav { margin-top: 1rem; }
+            header nav a { margin: 0 10px; font-size: 0.8rem; }
+        }
+
     </style>
 </head>
 <body>
 
+    <!-- HTML5 Canvas para el efecto de viaje en el tiempo -->
+    <canvas id="warp-canvas"></canvas>
+
     <header>
-        <div>TOM & FRIENDS EXCELLENT VENTURES 🎸</div>
+        <div class="brand">Tom & Friends / Excellent Ventures 🎸</div>
         <nav>
-            <a href="#aventuras">Las Aventuras</a>
-            <a href="#el-cerebro">El Cerebro</a>
+            <a href="#aventuras">Ventures</a>
+            <a href="#el-cerebro">Founder</a>
         </nav>
     </header>
 
-    <div class="hero">
-        <h1>"Be excellent to each other... <br>y hagamos proyectos increíbles"</h1>
-        <p>El holding creativo, gastronómico y tecnológico de Tomás Tondreau. Caos, estrategia y actitud punk.</p>
-    </div>
+    <main>
+        <section class="hero">
+            <h1>"BE EXCELLENT TO EACH OTHER... <br>& PARTY ON, DUDES!"</h1>
+            <p>El holding creativo, gastronómico y tecnológico de Tomás Tondreau. Caos, estrategia y actitud punk desde el futuro.</p>
+        </section>
 
-    <div id="aventuras" class="section">
-        <h2>🔥 Las Aventuras (Proyectos Activos)</h2>
-        
-        <div class="project">
-            <h3>Number Juan Burgers & Steaks</h3>
-            <p>Carnes maduradas y hamburguesas de especialidad. Sin cubiertos, puro sabor y técnica ahumada.</p>
-        </div>
+        <section id="aventuras" class="section">
+            <h2>Las Aventuras <span>[Active Projects]</span></h2>
+            <div class="ventures-grid">
+                <div class="venture-card">
+                    <h3>Number Juan</h3>
+                    <p>Burgers & Steaks de especialidad. Carnes maduradas, fuego y técnica ahumada. Branding crudo para paladares exigentes.</p>
+                </div>
+                <div class="venture-card">
+                    <h3>Casa de Retiro</h3>
+                    <p>BBQ & Social Club. Un espacio comunitario para talleres culinarios y colaboraciones que unen el fuego con la cultura.</p>
+                </div>
+                <div class="venture-card">
+                    <h3>YOKI</h3>
+                    <p>Apparel & Merch. Diseño custom y cultura skate de los 90s. Actitud DIY materializada en productos físicos.</p>
+                </div>
+                <div class="venture-card">
+                    <h3>Digital Labs</h3>
+                    <p>Consultoría en IA, VR y Branding. Aplicando vibes de "Vibe Coding" y estética punk a soluciones tecnológicas avanzadas.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="project">
-            <h3>Casa de Retiro BBQ & Social</h3>
-            <p>Espacio culinario y de talleres comunitarios. Fuego, colaboraciones y cultura BBQ.</p>
-        </div>
+        <section id="el-cerebro" class="section">
+            <h2>El Cerebro <span>[Personnel File]</span></h2>
+            <div class="founder-panel">
+                <p><strong>Tomás Tondreau</strong>: Creative Director, Art Director y Emprendedor Gastronómico. Formado en Publicidad en DuocUC Viña del Mar.</p>
+                <p>Con más de una década de experiencia fundando marcas icónicas (Honest Mike, Beervana) y liderando proyectos que cruzan la dirección de arte, el branding crudo y las nuevas tecnologías.</p>
+                <p>Su filosofía unifica el caos creativo con la estrategia de negocio, siempre con una actitud punk DIY.</p>
+            </div>
+        </section>
+    </main>
 
-        <div class="project">
-            <h3>YOKI</h3>
-            <p>Línea de apparel y merch. Diseño custom, cultura skate de los 90s y actitud DIY.</p>
-        </div>
-    </div>
+    <footer>
+        <p>Tom & Friends Excellent Ventures © 2026 // A Be Excellent Production</p>
+    </footer>
 
-    <div id="el-cerebro" class="section">
-        <h2>🧠 El Cerebro: Tomás Tondreau</h2>
-        <p>Creative Director, Art Director y Emprendedor Gastronómico. Publicista del DuocUC Viña del Mar.</p>
-        <p>Con más de una década de experiencia fundando marcas (Honest Mike, Beervana) y liderando proyectos que cruzan la dirección de arte, el branding crudo y las nuevas tecnologías (IA, VR).</p>
-    </div>
+    <!-- JavaScript para el efecto Warp de fondo -->
+    <script>
+        const canvas = document.getElementById('warp-canvas');
+        const ctx = canvas.getContext('2d');
+        let tokens = [];
+        let numTokens = 100;
+        let width, height;
 
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            if (tokens.length === 0) {
+                for (let i = 0; i < numTokens; i++) {
+                    tokens.push(new Token());
+                }
+            }
+        }
+
+        class Token {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.z = Math.random() * width;
+                this.color = Math.random() > 0.5 ? '#00ffff' : '#ff00ff'; // Cyan o Magenta
+            }
+
+            update() {
+                this.z -= 5; // Velocidad del warp
+                if (this.z < 1) {
+                    this.z = width;
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                }
+            }
+
+            draw() {
+                let posX = (this.x - width / 2) * (width / this.z) + width / 2;
+                let posY = (this.y - height / 2) * (width / this.z) + height / 2;
+                let size = (1 - this.z / width) * 4;
+
+                ctx.beginPath();
+                ctx.arc(posX, posY, size, 0, Math.random() * Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = '#000005'; // Fondo oscuro para limpiar
+            ctx.fillRect(0, 0, width, height);
+            
+            for (let i = 0; i < tokens.length; i++) {
+                tokens[i].update();
+                tokens[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        requestAnimationFrame(animate);
+    </script>
 </body>
 </html>
