@@ -42,28 +42,45 @@
             letter-spacing: 1px;
         }
 
+        /* --- CAPA FIJA PARA TU IMAGEN PNG (INTEGRACIÓN CÓSMICA) --- */
+        .backdrop-poster {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* Cambiado de fondo.jpg a fondo.png */
+            background: url('fondo.png') no-repeat center center;
+            background-size: cover;
+            z-index: -2; /* Se queda al fondo de todo */
+            opacity: 0.4; /* Deja pasar la oscuridad del fondo */
+            mix-blend-mode: screen; /* Clave para PNG: funde los negros y oscuros con el espacio profundo */
+            pointer-events: none;
+        }
+
+        /* Scanlines retro */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
             z-index: 9999;
             background-size: 100% 4px, 3px 100%;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.4;
         }
 
         #warp-canvas {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.6;
+            z-index: -1; /* Las estrellas vuelan por encima de tu foto de Ben, pero detrás del texto */
+            opacity: 0.7;
         }
 
         header {
-            background: rgba(0, 0, 10, 0.8);
+            background: rgba(0, 0, 10, 0.85);
             border-bottom: 2px solid var(--neon-cyan);
             box-shadow: var(--glow-cyan);
             padding: 1rem 2rem;
@@ -73,6 +90,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            backdrop-filter: blur(4px);
         }
 
         .brand {
@@ -92,7 +110,6 @@
             font-weight: 500;
             text-transform: uppercase;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         header nav a:hover {
@@ -111,25 +128,53 @@
             margin-top: 60px;
         }
 
-        .hero h1 {
-            font-family: var(--font-retro);
-            font-size: 2rem;
-            line-height: 1.5;
-            color: var(--neon-orange);
-            text-shadow: var(--glow-orange);
+        /* Logotipo estilo Bill & Ted adaptado en código */
+        .main-title-container {
+            transform: rotate(-1deg);
             margin-bottom: 2rem;
-            animation: glitch 2s infinite;
+        }
+
+        .main-title-top {
+            font-family: var(--font-retro);
+            font-size: 1.4rem;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            margin-bottom: 0.2rem;
+        }
+
+        .main-title-middle {
+            font-family: var(--font-tech);
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--neon-orange);
+            text-shadow: 3px 3px 0px var(--neon-cyan), var(--glow-orange);
+            transform: skewX(-10deg);
+            line-height: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .main-title-bottom {
+            font-family: var(--font-tech);
+            font-size: 2.8rem;
+            font-weight: 300;
+            text-transform: lowercase;
+            color: var(--neon-yellow);
+            text-shadow: var(--glow-yellow);
+            letter-spacing: 4px;
+            margin-top: 0.3rem;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            max-width: 800px;
+            font-size: 1.4rem;
+            max-width: 750px;
             font-weight: 300;
-            color: var(--neon-yellow);
-            text-shadow: var(--glow-yellow);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 1rem;
-            border: 1px solid var(--neon-yellow);
+            color: #ffffff;
+            background: rgba(0, 0, 5, 0.8);
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
+            backdrop-filter: blur(2px);
         }
 
         .section {
@@ -160,31 +205,17 @@
         }
 
         .venture-card {
-            background: rgba(0, 0, 20, 0.6);
-            border: 2px solid #333;
+            background: rgba(0, 0, 15, 0.85);
+            border: 2px solid #222;
             padding: 2rem;
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .venture-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--neon-orange);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            backdrop-filter: blur(3px);
         }
 
         .venture-card:hover {
             border-color: var(--neon-orange);
             box-shadow: var(--glow-orange);
             transform: translateY(-5px);
-        }
-
-        .venture-card:hover::before {
-            transform: scaleX(1);
         }
 
         .venture-card h3 {
@@ -195,20 +226,15 @@
             text-transform: uppercase;
         }
 
-        .venture-card p {
-            font-weight: 300;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-
         .founder-panel {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 5, 0.9);
             border: 2px solid var(--neon-yellow);
             box-shadow: var(--glow-yellow);
             padding: 3rem;
             font-size: 1.2rem;
             line-height: 1.8;
             position: relative;
+            backdrop-filter: blur(3px);
         }
 
         .founder-panel::after {
@@ -221,8 +247,6 @@
             opacity: 0.5;
         }
 
-        .founder-panel p { margin-bottom: 1.5rem; font-weight: 300;}
-        .founder-panel strong { font-weight: 700; color: var(--neon-cyan); }
         .founder-panel ul { margin-left: 20px; margin-bottom: 1.5rem; list-style-type: square; color: var(--neon-orange); }
         .founder-panel li span { color: var(--text-color); }
 
@@ -231,28 +255,23 @@
             padding: 2rem;
             font-family: var(--font-retro);
             font-size: 0.8rem;
-            color: #555;
-            border-top: 1px solid #222;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 2px 2px 0 var(--neon-cyan), -2px -2px 0 var(--neon-yellow); }
-            25% { text-shadow: -2px -2px 0 var(--neon-cyan), 2px 2px 0 var(--neon-yellow); }
-            50% { text-shadow: 2px -2px 0 var(--neon-cyan), -2px 2px 0 var(--neon-yellow); }
-            75% { text-shadow: -2px 2px 0 var(--neon-cyan), 2px -2px 0 var(--neon-yellow); }
-            100% { text-shadow: 2px 2px 0 var(--neon-cyan), -2px -2px 0 var(--neon-yellow); }
+            color: #444;
+            border-top: 1px solid #111;
+            background: rgba(0,0,0,0.9);
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.2rem; }
-            .hero p { font-size: 1rem; }
+            .main-title-top { font-size: 0.9rem; }
+            .main-title-middle { font-size: 2.8rem; }
+            .main-title-bottom { font-size: 1.8rem; }
             header { flex-direction: column; padding: 1rem; }
             header nav { margin-top: 1rem; }
-            header nav a { margin: 0 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
+
+    <div class="backdrop-poster"></div>
 
     <canvas id="warp-canvas"></canvas>
 
@@ -266,7 +285,11 @@
 
     <main>
         <section class="hero">
-            <h1>"BE EXCELLENT TO EACH OTHER..."</h1>
+            <div class="main-title-container">
+                <div class="main-title-top">Tom & Friends</div>
+                <div class="main-title-middle">Excellent</div>
+                <div class="main-title-bottom">ventures</div>
+            </div>
             <p>Estrategia, diseño y fuego. El ecosistema creativo que cruza la dirección de arte, la cultura gastronómica y la exploración tecnológica.</p>
         </section>
 
@@ -304,7 +327,7 @@
                     <li><span>Gestión y supervisión administrativa en <strong>Dispensario Nacional</strong> (control de sucursales, inventario y membresías).</span></li>
                 </ul>
 
-                <p><strong>Proyectos Recientes (2025-2026):</strong></p>
+                <p><strong>Proyectos Recientes:</strong></p>
                 <ul>
                     <li><span>Desarrollo de infraestructura y branding para <strong>Number Juan Burgers & Steaks</strong> y <strong>Casa de Retiro BBQ & Social</strong>.</span></li>
                     <li><span>Consultoría gráfica e industrial, incluyendo el desarrollo de empaques para <strong>Worchips Cookie Co.</strong></span></li>
@@ -316,7 +339,7 @@
     </main>
 
     <footer>
-        <p>Tom & Friends Excellent Ventures © 2026 // A Be Excellent Production</p>
+        <p>Tom & Friends Excellent Ventures // A Be Excellent Production</p>
     </footer>
 
     <script>
@@ -328,7 +351,7 @@
         const canvas = document.getElementById('warp-canvas');
         const ctx = canvas.getContext('2d');
         let tokens = [];
-        let numTokens = 150;
+        let numTokens = 120;
         let width, height;
         let mouseX = 0;
         let mouseY = 0;
@@ -357,7 +380,7 @@
             }
 
             update() {
-                let speed = 4 + (Math.abs(mouseX) + Math.abs(mouseY)) * 10;
+                let speed = 3 + (Math.abs(mouseX) + Math.abs(mouseY)) * 8;
                 this.z -= speed;
                 if (this.z < 1) {
                     this.z = width;
@@ -372,7 +395,7 @@
                 
                 let posX = (this.x - width / 2) * (width / this.z) + width / 2 + shiftX;
                 let posY = (this.y - height / 2) * (width / this.z) + height / 2 + shiftY;
-                let size = (1 - this.z / width) * 3;
+                let size = (1 - this.z / width) * 2.5;
 
                 ctx.beginPath();
                 ctx.arc(posX, posY, size, 0, Math.random() * Math.PI * 2);
@@ -382,9 +405,7 @@
         }
 
         function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 5, 0.2)'; 
-            ctx.fillRect(0, 0, width, height);
-            
+            ctx.clearRect(0, 0, width, height);
             for (let i = 0; i < tokens.length; i++) {
                 tokens[i].update();
                 tokens[i].draw();
