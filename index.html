@@ -42,7 +42,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- CAPA FIJA PARA TU IMAGEN PNG (ENCUADRE Y EFECTO OLD SCHOOL) --- */
+        /* --- CAPA FIJA PARA TU IMAGEN PNG --- */
         .backdrop-poster {
             position: fixed;
             top: 0;
@@ -55,6 +55,11 @@
             opacity: 0.45;
             mix-blend-mode: screen;
             pointer-events: none;
+            transform-origin: center center;
+        }
+
+        /* Clase activa para ejecutar la animación de intro (y reinicio) */
+        .run-intro {
             animation: oldschoolIntro 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
@@ -74,6 +79,7 @@
             }
         }
 
+        /* Scanlines CRT */
         body::before {
             content: " ";
             display: block;
@@ -91,7 +97,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            opacity: 0.7;
+            opacity: 0.85; /* Subimos un poco para dar más contraste a la nebulosa */
         }
 
         header {
@@ -109,264 +115,4 @@
         }
 
         .brand {
-            font-family: var(--font-tech);
-            color: var(--neon-cyan);
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: var(--glow-cyan);
-        }
-
-        header nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 20px;
-            font-family: var(--font-main);
-            font-weight: 500;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        header nav a:hover {
-            color: var(--neon-yellow);
-            text-shadow: var(--glow-yellow);
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-            margin-top: 60px;
-        }
-
-        .main-title-container {
-            transform: rotate(-1deg);
-            margin-bottom: 2rem;
-        }
-
-        .main-title-top {
-            font-family: var(--font-retro);
-            font-size: 1.4rem;
-            color: var(--neon-cyan);
-            text-shadow: var(--glow-cyan);
-            margin-bottom: 0.2rem;
-        }
-
-        .main-title-middle {
-            font-family: var(--font-tech);
-            font-size: 4.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            color: var(--neon-orange);
-            text-shadow: 3px 3px 0px var(--neon-cyan), var(--glow-orange);
-            transform: skewX(-10deg);
-            line-height: 0.9;
-            letter-spacing: 2px;
-        }
-
-        .main-title-bottom {
-            font-family: var(--font-tech);
-            font-size: 2.8rem;
-            font-weight: 300;
-            text-transform: lowercase;
-            color: var(--neon-yellow);
-            text-shadow: var(--glow-yellow);
-            letter-spacing: 4px;
-            margin-top: 0.3rem;
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            max-width: 750px;
-            font-weight: 300;
-            color: #ffffff;
-            background: rgba(0, 0, 5, 0.8);
-            padding: 1.5rem;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
-            backdrop-filter: blur(2px);
-        }
-
-        .section {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6rem 2rem;
-        }
-
-        h2 {
-            font-family: var(--font-tech);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            color: var(--neon-cyan);
-            text-shadow: var(--glow-cyan);
-            border-bottom: 1px solid var(--neon-cyan);
-            padding-bottom: 1rem;
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-        }
-
-        h2 span { font-size: 1rem; margin-left: 1rem; opacity: 0.7; font-family: var(--font-retro);}
-
-        .ventures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .venture-card {
-            background: rgba(0, 0, 15, 0.85);
-            border: 2px solid #222;
-            padding: 2rem;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(3px);
-        }
-
-        .venture-card:hover {
-            border-color: var(--neon-orange);
-            box-shadow: var(--glow-orange);
-            transform: translateY(-5px);
-        }
-
-        .venture-card h3 {
-            font-family: var(--font-tech);
-            color: var(--neon-orange);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .founder-panel {
-            background: rgba(0, 0, 5, 0.9);
-            border: 2px solid var(--neon-yellow);
-            box-shadow: var(--glow-yellow);
-            padding: 3rem;
-            font-size: 1.2rem;
-            line-height: 1.8;
-            position: relative;
-            backdrop-filter: blur(3px);
-        }
-
-        .founder-panel::after {
-            content: 'BIOMETRIC ID: T. TONDREAU';
-            position: absolute;
-            bottom: 10px; right: 15px;
-            font-family: var(--font-retro);
-            font-size: 0.6rem;
-            color: var(--neon-yellow);
-            opacity: 0.5;
-        }
-
-        .founder-panel ul { margin-left: 20px; margin-bottom: 1.5rem; list-style-type: square; color: var(--neon-orange); }
-        .founder-panel li span { color: var(--text-color); }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-family: var(--font-retro);
-            font-size: 0.8rem;
-            color: #444;
-            border-top: 1px solid #111;
-            background: rgba(0,0,0,0.9);
-        }
-
-        @media (max-width: 768px) {
-            .main-title-top { font-size: 0.9rem; }
-            .main-title-middle { font-size: 2.8rem; }
-            .main-title-bottom { font-size: 1.8rem; }
-            header { flex-direction: column; padding: 1rem; }
-            header nav { margin-top: 1rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="backdrop-poster"></div>
-
-    <canvas id="warp-canvas"></canvas>
-
-    <header>
-        <div class="brand">Tom & Friends / Excellent Ventures 🎸</div>
-        <nav>
-            <a href="#aventuras">Ventures</a>
-            <a href="#el-cerebro">Founder</a>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="main-title-container">
-                <div class="main-title-top">Tom & Friends</div>
-                <div class="main-title-middle">Excellent</div>
-                <div class="main-title-bottom">ventures</div>
-            </div>
-            <p>Estrategia, diseño y fuego. El ecosistema creativo que cruza la dirección de arte, la cultura gastronómica y la exploración tecnológica.</p>
-        </section>
-
-        <section id="aventuras" class="section">
-            <h2>Las Aventuras <span>[Active Projects]</span></h2>
-            <div class="ventures-grid">
-                <div class="venture-card">
-                    <h3>Number Juan</h3>
-                    <p>Burgers & Steaks de especialidad. Carnes maduradas y técnica ahumada. Servicio enfocado en la experiencia cruda: cortes pre-trinchados y hamburguesas pensadas para comer con las manos. Cero cubiertos, puro sabor.</p>
-                </div>
-                <div class="venture-card">
-                    <h3>Casa de Retiro</h3>
-                    <p>BBQ & Social Club. Un espacio comunitario para talleres culinarios y colaboraciones que unen el fuego con la cultura independiente.</p>
-                </div>
-                <div class="venture-card">
-                    <h3>YOKI</h3>
-                    <p>Apparel & Merch. Diseño custom y estética noventera materializada en productos físicos y colecciones independientes.</p>
-                </div>
-                <div class="venture-card">
-                    <h3>Digital Labs</h3>
-                    <p>Exploración y consultoría. Integración de herramientas de IA, Realidad Virtual y "vibe coding" aplicadas a la dirección de arte y branding de nueva generación.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="el-cerebro" class="section">
-            <h2>El Cerebro <span>[Personnel File]</span></h2>
-            <div class="founder-panel">
-                <p><strong>Tomás Tondreau</strong> — Creative Director, Art Director y Emprendedor Gastronómico.</p>
-                <p>Titulado en Publicidad por el DuocUC Viña del Mar, con una trayectoria que unifica el control operativo, la estrategia de negocio y la dirección visual.</p>
-                
-                <p><strong>Background Operativo & Emprendimiento:</strong></p>
-                <ul>
-                    <li><span>Co-fundador histórico en la escena gastronómica independiente (Honest Mike, Beervana).</span></li>
-                    <li><span>Gestión y supervisión administrativa en <strong>Dispensario Nacional</strong> (control de sucursales, inventario y membresías).</span></li>
-                </ul>
-
-                <p><strong>Proyectos Recientes:</strong></p>
-                <ul>
-                    <li><span>Desarrollo de infraestructura y branding para <strong>Number Juan Burgers & Steaks</strong> y <strong>Casa de Retiro BBQ & Social</strong>.</span></li>
-                    <li><span>Consultoría gráfica e industrial, incluyendo el desarrollo de empaques para <strong>Worchips Cookie Co.</strong></span></li>
-                    <li><span>Diseño y lanzamiento de indumentaria bajo la marca <strong>YOKI</strong>.</span></li>
-                </ul>
-                <p><strong>Contacto:</strong> tondreau@gmail.com</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Tom & Friends Excellent Ventures // A Be Excellent Production</p>
-    </footer>
-
-    <script>
-        window.addEventListener('mousedown', () => document.body.classList.add('clicking'));
-        window.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
-
-        const canvas = document.getElementById('warp-canvas');
-        const ctx = canvas.getContext('2d');
-        let tokens = [];
-        let numTokens = 120;
-        let width, height;
-        let mouseX = 0;
-        let mouseY = 0;
-
-        function resize() {
-            width = canvas.width = window
+            font-family
