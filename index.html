@@ -1,37 +1,139 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tom & Friends Excellent Ventures 🎸</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #000005; --text-color: #e0fbfc; --neon-cyan: #00ffff; --neon-orange: #ff7700; --neon-yellow: #ffff00;
-            --glow-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff; --glow-orange: 0 0 10px #ff7700, 0 0 20px #ff7700;
-            --font-main: 'Rajdhani', sans-serif; --font-tech: 'Orbitron', sans-serif; --font-retro: 'Press Start 2P', cursive;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><line x1="8" y1="8" x2="24" y2="24" stroke="%23d4a373" stroke-width="4" stroke-linecap="round"/><circle cx="6" cy="6" r="4" fill="%238b0000"/></svg>') 6 6, auto !important; }
+        :root { --bg-color: #000005; --text-color: #e0fbfc; --neon-cyan: #00ffff; --neon-orange: #ff7700; --neon-yellow: #ffff00; --glow-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff; --font-main: 'Rajdhani', sans-serif; --font-tech: 'Orbitron', sans-serif; --font-retro: 'Press Start 2P', cursive; }
+        * { margin:0; padding:0; box-sizing:border-box; outline:none; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><line x1="8" y1="8" x2="24" y2="24" stroke="%23d4a373" stroke-width="4" stroke-linecap="round"/><circle cx="6" cy="6" r="4" fill="%238b0000"/></svg>') 6 6, auto !important; }
         body.clicking * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><path d="M6 0 C2 3 4 8 6 10 C8 8 10 3 6 0 Z" fill="%23ff7700"/><path d="M6 3 C4 5 5 8 6 9 C7 8 8 5 6 3 Z" fill="%23ffff00"/><line x1="8" y1="10" x2="24" y2="26" stroke="%23d4a373" stroke-width="4" stroke-linecap="round"/><circle cx="6" cy="8" r="3" fill="%23222"/></svg>') 6 6, auto !important; }
         html { scroll-behavior: smooth; background-color: var(--bg-color); }
         body { color: var(--text-color); font-family: var(--font-main); overflow-x: hidden; letter-spacing: 1px; }
-        
-        .backdrop-poster {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('fondo.png') no-repeat center 60%; background-size: contain;
-            z-index: -3; opacity: 0.8; transform-origin: center center;
-        }
+        .backdrop-poster { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url('fondo.png') no-repeat center 60%; background-size: contain; z-index: -3; opacity: 0.8; transform-origin: center center; }
         .run-intro { animation: oldschoolIntro 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        @keyframes oldschoolIntro {
-            0% { transform: scale(0.1) rotate(-180deg); opacity: 0; }
-            70% { transform: scale(1.05) rotate(5deg); opacity: 0.7; }
-            100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
-        }
-        body::before {
-            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
-            z-index: 9999; background-size: 100% 4px, 3px 100%; pointer-events: none; opacity: 0.4;
-        }
+        @keyframes oldschoolIntro { 0% { transform: scale(0.1) rotate(-180deg); opacity: 0; } 70% { transform: scale(1.05) rotate(5deg); opacity: 0.7; } 100% { transform: scale(1) rotate(0deg); opacity: 0.8; } }
+        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04)); z-index: 9999; background-size: 100% 4px, 3px 100%; pointer-events: none; opacity: 0.4; }
         #warp-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; opacity: 0.85; pointer-events: none; }
-        
-        header { background: rgba(0, 0, 10, 0.85); border-bottom: 2px solid var(--neon-cyan); box-shadow: var(--glow-cyan); padding: 1rem 2rem
+        header { background: rgba(0, 0, 10, 0.85); border-bottom: 2px solid var(--neon-cyan); box-shadow: var(--glow-cyan); padding: 1rem 2rem; position: fixed; top: 0; width: 100%; z-index: 1000; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(4px); }
+        .brand { font-family: var(--font-tech); color: var(--neon-cyan); text-transform: uppercase; font-weight: bold; font-size: 1.2rem; text-shadow: var(--glow-cyan); }
+        #trigger-friends { color: var(--neon-orange); text-shadow: 0 0 10px #ff7700; cursor: pointer; padding: 0 6px; display: inline-block; z-index: 1010; position: relative; }
+        header nav a { color: var(--text-color); text-decoration: none; margin-left: 20px; font-family: var(--font-main); text-transform: uppercase; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; }
+        .main-title-container { transform: rotate(-1deg); margin-bottom: 2rem; }
+        .main-title-top { font-family: var(--font-retro); font-size: 1.4rem; color: var(--neon-cyan); text-shadow: var(--glow-cyan); }
+        .main-title-middle { font-family: var(--font-tech); font-size: 4.5rem; font-weight: 900; text-transform: uppercase; color: var(--neon-orange); text-shadow: 3px 3px 0px var(--neon-cyan); transform: skewX(-10deg); line-height: 0.9; }
+        .main-title-bottom { font-family: var(--font-tech); font-size: 2.8rem; font-weight: 300; text-transform: lowercase; color: var(--neon-yellow); letter-spacing: 4px; }
+        .hero p { font-size: 1.4rem; max-width: 750px; font-weight: 300; color: #ffffff; background: rgba(0, 0, 5, 0.8); padding: 1.5rem; border: 1px solid rgba(0, 255, 255, 0.2); backdrop-filter: blur(2px); }
+        .section { max-width: 1000px; margin: 0 auto; padding: 6rem 2rem; }
+        h2 { font-family: var(--font-tech); font-size: 2.5rem; text-transform: uppercase; color: var(--neon-cyan); text-shadow: var(--glow-cyan); border-bottom: 1px solid var(--neon-cyan); padding-bottom: 1rem; margin-bottom: 3rem; }
+        .ventures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .venture-card { background: rgba(0, 0, 15, 0.85); border: 2px solid #222; padding: 2rem; backdrop-filter: blur(3px); }
+        .venture-card h3 { font-family: var(--font-tech); color: var(--neon-orange); font-size: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; }
+        .founder-panel { background: rgba(0, 0, 5, 0.9); border: 2px solid var(--neon-yellow); padding: 3rem; font-size: 1.2rem; line-height: 1.8; position: relative; }
+        .founder-panel ul { margin-left: 20px; margin-bottom: 1.5rem; list-style-type: square; color: var(--neon-orange); }
+        .founder-panel li span { color: var(--text-color); }
+        footer { text-align: center; padding: 2rem; font-family: var(--font-retro); font-size: 0.8rem; color: #444; background: rgba(0,0,0,0.9); }
+    </style>
+</head>
+<body>
+
+    <div id="poster" class="backdrop-poster run-intro"></div>
+    <canvas id="warp-canvas"></canvas>
+
+    <header>
+        <div class="brand">Tom & <span id="trigger-friends">Friends</span> / Excellent Ventures 🎸</div>
+        <nav><a href="#aventuras">Ventures</a><a href="#el-cerebro">Founder</a></nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="main-title-container">
+                <div class="main-title-top">Tom & Friends</div>
+                <div class="main-title-middle">Excellent</div>
+                <div class="main-title-bottom">ventures</div>
+            </div>
+            <p>Estrategia, diseño y fuego. El ecosistema creativo que cruza la dirección de arte, la cultura gastronómica y la exploración tecnológica.</p>
+        </section>
+
+        <section id="aventuras" class="section">
+            <h2>Las Aventuras</h2>
+            <div class="ventures-grid">
+                <div class="venture-card">
+                    <h3>Number Juan</h3>
+                    <p>Burgers & Steaks de especialidad. Carnes maduradas y técnica ahumada. Servicio enfocado en la experiencia cruda: cortes pre-trinchados y hamburguesas pensadas para comer con las manos. Cero cubiertos, puro sabor.</p>
+                </div>
+                <div class="venture-card">
+                    <h3>Casa de Retiro</h3>
+                    <p>BBQ & Social Club. Un espacio comunitario para talleres culinarios y colaboraciones que unen el fuego con la cultura independiente.</p>
+                </div>
+                <div class="venture-card">
+                    <h3>YOKI</h3>
+                    <p>Apparel & Merch. Diseño custom y estética noventera materializada en productos físicos y colecciones independientes.</p>
+                </div>
+                <div class="venture-card">
+                    <h3>Digital Labs</h3>
+                    <p>Exploración y consultoría. Integración de herramientas de IA, Realidad Virtual y "vibe coding" aplicadas a la dirección de arte y branding de nueva generación.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="el-cerebro" class="section">
+            <h2>El Cerebro</h2>
+            <div class="founder-panel">
+                <p><strong>Tomás Tondreau</strong> — Creative Director, Art Director y Emprendedor Gastronómico.</p>
+                <p>Titulado en Publicidad por el DuocUC Viña del Mar, con una trayectoria que unifica el control operativo, la estrategia de negocio y la dirección visual.</p>
+                <p><strong>Background Operativo & Emprendimiento:</strong></p>
+                <ul>
+                    <li><span>Co-fundador histórico en la escena gastronómica independiente (Honest Mike, Beervana).</span></li>
+                    <li><span>Gestión y supervisión administrativa en <strong>Dispensario Nacional</strong> (control de sucursales, inventario y membresías).</span></li>
+                </ul>
+                <p><strong>Proyectos Recientes:</strong></p>
+                <ul>
+                    <li><span>Desarrollo de infraestructura y branding para <strong>Number Juan Burgers & Steaks</strong> y <strong>Casa de Retiro BBQ & Social</strong>.</span></li>
+                    <li><span>Consultoría gráfica e industrial, incluyendo el desarrollo de empaques para <strong>Worchips Cookie Co.</strong></span></li>
+                    <li><span>Diseño y lanzamiento de indumentaria bajo la marca <strong>YOKI</strong>.</span></li>
+                </ul>
+                <p><strong>Contacto:</strong> tondreau@gmail.com</p>
+            </div>
+        </section>
+    </main>
+
+    <footer><p>Tom & Friends Excellent Ventures // A Be Excellent Production</p></footer>
+
+    <script>
+        const trigger = document.getElementById('trigger-friends'); const poster = document.getElementById('poster');
+        trigger.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); poster.classList.remove('run-intro'); void poster.offsetWidth; poster.classList.add('run-intro'); });
+        window.addEventListener('mousedown', () => document.body.classList.add('clicking')); window.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
+
+        const canvas = document.getElementById('warp-canvas'); const ctx = canvas.getContext('2d');
+        let tokens = []; let numTokens = 130; let width, height; let mouseX = 0; let mouseY = 0; let nebulaTime = 0;
+
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; if (tokens.length === 0) { for (let i = 0; i < numTokens; i++) { tokens.push(new Token()); } } }
+        window.addEventListener('mousemove', (e) => { mouseX = (e.clientX - width / 2) / width; mouseY = (e.clientY - height / 2) / height; });
+
+        class Token {
+            constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.z = Math.random() * width; this.color = Math.random() > 0.4 ? '#00ffff' : '#ff7700'; }
+            update() { let speed = 4 + (Math.abs(mouseX) + Math.abs(mouseY)) * 14; this.z -= speed; if (this.z < 1) { this.z = width; this.x = Math.random() * width; this.y = Math.random() * height; } }
+            draw() {
+                let sX = mouseX * this.z * 0.15; let sY = mouseY * this.z * 0.15;
+                let pX = (this.x - width / 2) * (width / this.z) + width / 2 + sX; let pY = (this.y - height / 2) * (width / this.z) + height / 2 + sY;
+                let size = (1 - this.z / width) * 2.8; ctx.beginPath(); ctx.arc(pX, pY, size, 0, Math.PI * 2); ctx.fillStyle = this.color; ctx.fill();
+            }
+        }
+
+        function drawNebula() {
+            nebulaTime += 0.002; let pulse = Math.sin(nebulaTime) * 20;
+            let gL = ctx.createRadialGradient(0, height/2, 10, 0, height/2, width * 0.45 + pulse); gL.addColorStop(0, 'rgba(0, 255, 255, 0.09)'); gL.addColorStop(0.5, 'rgba(0, 200, 255, 0.04)'); gL.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gL; ctx.fillRect(0, 0, width, height);
+            let gR = ctx.createRadialGradient(width, height/2, 10, width, height/2, width * 0.45 - pulse); gR.addColorStop(0, 'rgba(255, 119, 0, 0.09)'); gR.addColorStop(0.5, 'rgba(230, 90, 0, 0.04)'); gR.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gR; ctx.fillRect(0, 0, width, height);
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 5, 0.25)'; ctx.fillRect(0, 0, width, height);
+            drawNebula(); for (let i = 0; i < tokens.length; i++) { tokens[i].update(); tokens[i].draw(); }
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', resize); resize(); requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
