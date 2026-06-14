@@ -42,23 +42,38 @@
             letter-spacing: 1px;
         }
 
-        /* --- CAPA FIJA PARA TU IMAGEN PNG (INTEGRACIÓN CÓSMICA) --- */
+        /* --- CAPA FIJA PARA TU IMAGEN PNG (ENCUADRE Y EFECTO OLD SCHOOL) --- */
         .backdrop-poster {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            /* Cambiado de fondo.jpg a fondo.png */
-            background: url('fondo.png') no-repeat center center;
-            background-size: cover;
-            z-index: -2; /* Se queda al fondo de todo */
-            opacity: 0.4; /* Deja pasar la oscuridad del fondo */
-            mix-blend-mode: screen; /* Clave para PNG: funde los negros y oscuros con el espacio profundo */
+            background: url('fondo.png') no-repeat center 60%; 
+            background-size: contain; 
+            z-index: -2;
+            opacity: 0.45;
+            mix-blend-mode: screen;
             pointer-events: none;
+            animation: oldschoolIntro 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* Scanlines retro */
+        /* --- ANIMACIÓN: ZOOM IN ROTATIVO RETRO --- */
+        @keyframes oldschoolIntro {
+            0% {
+                transform: scale(0.1) rotate(-180deg);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.05) rotate(5deg);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.45;
+            }
+        }
+
         body::before {
             content: " ";
             display: block;
@@ -75,7 +90,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -1; /* Las estrellas vuelan por encima de tu foto de Ben, pero detrás del texto */
+            z-index: -1;
             opacity: 0.7;
         }
 
@@ -128,7 +143,6 @@
             margin-top: 60px;
         }
 
-        /* Logotipo estilo Bill & Ted adaptado en código */
         .main-title-container {
             transform: rotate(-1deg);
             margin-bottom: 2rem;
@@ -343,11 +357,9 @@
     </footer>
 
     <script>
-        // --- SCRIPT DEL FÓSFORO (CLIC) ---
         window.addEventListener('mousedown', () => document.body.classList.add('clicking'));
         window.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
 
-        // --- SCRIPT DEL FONDO WARP DINÁMICO ---
         const canvas = document.getElementById('warp-canvas');
         const ctx = canvas.getContext('2d');
         let tokens = [];
@@ -357,65 +369,4 @@
         let mouseY = 0;
 
         function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            if (tokens.length === 0) {
-                for (let i = 0; i < numTokens; i++) {
-                    tokens.push(new Token());
-                }
-            }
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - width / 2) / width;
-            mouseY = (e.clientY - height / 2) / height;
-        });
-
-        class Token {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.z = Math.random() * width;
-                this.color = Math.random() > 0.5 ? '#00ffff' : '#ff7700';
-            }
-
-            update() {
-                let speed = 3 + (Math.abs(mouseX) + Math.abs(mouseY)) * 8;
-                this.z -= speed;
-                if (this.z < 1) {
-                    this.z = width;
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                }
-            }
-
-            draw() {
-                let shiftX = mouseX * this.z * 0.1;
-                let shiftY = mouseY * this.z * 0.1;
-                
-                let posX = (this.x - width / 2) * (width / this.z) + width / 2 + shiftX;
-                let posY = (this.y - height / 2) * (width / this.z) + height / 2 + shiftY;
-                let size = (1 - this.z / width) * 2.5;
-
-                ctx.beginPath();
-                ctx.arc(posX, posY, size, 0, Math.random() * Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < tokens.length; i++) {
-                tokens[i].update();
-                tokens[i].draw();
-            }
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-        requestAnimationFrame(animate);
-    </script>
-</body>
-</html>
+            width = canvas.width = window
