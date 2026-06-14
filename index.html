@@ -52,8 +52,8 @@
             background: url('fondo.png') no-repeat center 60%; 
             background-size: contain; 
             z-index: -2;
-            opacity: 0.45;
-            mix-blend-mode: screen;
+            opacity: 0.85; /* Subido de 0.45 a 0.85 para que sea claramente visible */
+            mix-blend-mode: normal; /* Cambiado a normal para evitar que el screen lave los colores contra el negro */
             pointer-events: none;
             transform-origin: center center;
         }
@@ -71,11 +71,11 @@
             }
             70% {
                 transform: scale(1.05) rotate(5deg);
-                opacity: 0.4;
+                opacity: 0.8;
             }
             100% {
                 transform: scale(1) rotate(0deg);
-                opacity: 0.45;
+                opacity: 0.85; /* Consistente con el estilo base */
             }
         }
 
@@ -128,8 +128,11 @@
             color: var(--neon-orange);
             text-shadow: var(--glow-orange);
             cursor: pointer;
-            padding: 0 4px;
+            padding: 0 6px;
+            display: inline-block;
             transition: all 0.2s ease;
+            position: relative;
+            z-index: 1010; /* Asegura prioridad de clic sobre el header */
         }
         #trigger-friends:hover {
             color: var(--neon-yellow);
@@ -323,167 +326,4 @@
                 <div class="main-title-middle">Excellent</div>
                 <div class="main-title-bottom">ventures</div>
             </div>
-            <p>Estrategia, diseño y fuego. El ecosistema creativo que cruza la dirección de arte, la cultura gastronómica y la exploración tecnológica.</p>
-        </section>
-
-        <section id="aventuras" class="section">
-            <h2>Las Aventuras <span>[Active Projects]</span></h2>
-            <div class="ventures-grid">
-                <div class="venture-card">
-                    <h3>Number Juan</h3>
-                    <p>Burgers & Steaks de especialidad. Carnes maduradas y técnica ahumada. Servicio enfocado en la experiencia cruda: cortes pre-trinchados y hamburguesas pensadas para comer con las manos. Cero cubiertos, puro sabor.</p>
-                </div>
-                <div class="venture-card">
-                    <h3>Casa de Retiro</h3>
-                    <p>BBQ & Social Club. Un espacio comunitario para talleres culinarios y colaboraciones que unen el fuego con la cultura independiente.</p>
-                </div>
-                <div class="venture-card">
-                    <h3>YOKI</h3>
-                    <p>Apparel & Merch. Diseño custom y estética noventera materializada en productos físicos y colecciones independientes.</p>
-                </div>
-                <div class="venture-card">
-                    <h3>Digital Labs</h3>
-                    <p>Exploración y consultoría. Integración de herramientas de IA, Realidad Virtual y "vibe coding" aplicadas a la dirección de arte y branding de nueva generación.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="el-cerebro" class="section">
-            <h2>El Cerebro <span>[Personnel File]</span></h2>
-            <div class="founder-panel">
-                <p><strong>Tomás Tondreau</strong> — Creative Director, Art Director y Emprendedor Gastronómico.</p>
-                <p>Titulado en Publicidad por el DuocUC Viña del Mar, con una trayectoria que unifica el control operativo, la estrategia de negocio y la dirección visual.</p>
-                
-                <p><strong>Background Operativo & Emprendimiento:</strong></p>
-                <ul>
-                    <li><span>Co-fundador histórico en la escena gastronómica independiente (Honest Mike, Beervana).</span></li>
-                    <li><span>Gestión y supervisión administrativa en <strong>Dispensario Nacional</strong> (control de sucursales, inventario y membresías).</span></li>
-                </ul>
-
-                <p><strong>Proyectos Recientes:</strong></p>
-                <ul>
-                    <li><span>Desarrollo de infraestructura y branding para <strong>Number Juan Burgers & Steaks</strong> y <strong>Casa de Retiro BBQ & Social</strong>.</span></li>
-                    <li><span>Consultoría gráfica e industrial, incluyendo el desarrollo de empaques para <strong>Worchips Cookie Co.</strong></span></li>
-                    <li><span>Diseño y lanzamiento de indumentaria bajo la marca <strong>YOKI</strong>.</span></li>
-                </ul>
-                <p><strong>Contacto:</strong> tondreau@gmail.com</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Tom & Friends Excellent Ventures // A Be Excellent Production</p>
-    </footer>
-
-    <script>
-        // --- GATILLO DE REINICIO DE ANIMACIÓN ("FRIENDS") ---
-        const trigger = document.getElementById('trigger-friends');
-        const poster = document.getElementById('poster');
-
-        trigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            poster.classList.remove('run-intro');
-            void poster.offsetWidth; 
-            poster.classList.add('run-intro');
-        });
-
-        // --- SCRIPT DEL FÓSFORO (CLIC) ---
-        window.addEventListener('mousedown', () => document.body.classList.add('clicking'));
-        window.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
-
-        // --- WARP INTERACTIVO + NEBULOSA EN CANVAS ---
-        const canvas = document.getElementById('warp-canvas');
-        const ctx = canvas.getContext('2d');
-        let tokens = [];
-        let numTokens = 130;
-        let width, height;
-        let mouseX = 0;
-        let mouseY = 0;
-        let nebulaTime = 0;
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            if (tokens.length === 0) {
-                for (let i = 0; i < numTokens; i++) {
-                    tokens.push(new Token());
-                }
-            }
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - width / 2) / width;
-            mouseY = (e.clientY - height / 2) / height;
-        });
-
-        class Token {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.z = Math.random() * width;
-                this.color = Math.random() > 0.4 ? '#00ffff' : '#ff7700';
-            }
-
-            update() {
-                let speed = 4 + (Math.abs(mouseX) + Math.abs(mouseY)) * 14;
-                this.z -= speed;
-                if (this.z < 1) {
-                    this.z = width;
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                }
-            }
-
-            draw() {
-                let shiftX = mouseX * this.z * 0.15;
-                let shiftY = mouseY * this.z * 0.15;
-                
-                let posX = (this.x - width / 2) * (width / this.z) + width / 2 + shiftX;
-                let posY = (this.y - height / 2) * (width / this.z) + height / 2 + shiftY;
-                let size = (1 - this.z / width) * 2.8;
-
-                ctx.beginPath();
-                ctx.arc(posX, posY, size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-        }
-
-        function drawNebula() {
-            nebulaTime += 0.002;
-            let pulse = Math.sin(nebulaTime) * 20;
-
-            let gradLeft = ctx.createRadialGradient(0, height/2, 10, 0, height/2, width * 0.45 + pulse);
-            gradLeft.addColorStop(0, 'rgba(0, 255, 255, 0.09)');
-            gradLeft.addColorStop(0.5, 'rgba(0, 200, 255, 0.04)');
-            gradLeft.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = gradLeft;
-            ctx.fillRect(0, 0, width, height);
-
-            let gradRight = ctx.createRadialGradient(width, height/2, 10, width, height/2, width * 0.45 - pulse);
-            gradRight.addColorStop(0, 'rgba(255, 119, 0, 0.09)');
-            gradRight.addColorStop(0.5, 'rgba(230, 90, 0, 0.04)');
-            gradRight.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = gradRight;
-            ctx.fillRect(0, 0, width, height);
-        }
-
-        function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 5, 0.25)';
-            ctx.fillRect(0, 0, width, height);
-            
-            drawNebula();
-
-            for (let i = 0; i < tokens.length; i++) {
-                tokens[i].update();
-                tokens[i].draw();
-            }
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-        requestAnimationFrame(animate);
-    </script>
-</body>
-</html>
+            <p>Estrategia, diseño y fuego.
